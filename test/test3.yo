@@ -1,0 +1,5 @@
+0x000: 30f06400000000000000 | irmovq $100, %rax
+0x00a: 30f40001000000000000 | irmovq $0x100, %rsp    # Initialize stack pointer to valid memory region
+0x014: a00f                 | pushq %rax
+0x016: b03f                 | popq %rbx
+0x018: 00                   | halt

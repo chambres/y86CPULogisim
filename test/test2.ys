@@ -1,0 +1,35 @@
+# Execution begins at address 0 
+    .pos 0
+    irmovq stack, %rsp      # Set up stack pointer
+    irmovq $5, %rdi         # set i into %rdi
+    irmovq $7, %rsi         # set j into %rsi
+    jmp func                # func(i, j)
+
+# func(int i, int j)
+# %rdi = i (integer value)
+# %rsi = j (integer value)
+func:
+    rrmovq %rdi, %rax      # Load i into %rax
+    rrmovq %rsi, %rbx      # Load j into %rbx
+
+    subq %rbx, %rax        # Compare i and j (i - j)
+    jle else               # Jump to else if i <= j
+
+    # Then branch (i > j)
+    irmovq $10, %r10       # Load constant 10
+    subq %r10, %rdi        # i = i - 10
+    irmovq $20, %r10       # Load constant 20
+    addq %r10, %rsi        # j = j + 20
+    jmp end                # Jump to function end
+
+else:
+    irmovq $10, %rdi       # i = 10
+    irmovq $1, %r10        # Load constant 1
+    addq %r10, %rsi        # j++
+
+end:
+    halt
+
+# Stack starts here and grows to lower addresses
+    .pos 0x000
+stack:

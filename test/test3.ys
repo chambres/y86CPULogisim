@@ -1,0 +1,5 @@
+irmovq $100, %rax
+irmovq $0x100, %rsp    # Initialize stack pointer to valid memory region
+pushq %rax
+popq %rbx
+halt

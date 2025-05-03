@@ -1,0 +1,11 @@
+    irmovq $5, %rax
+    irmovq $5, %rbx
+    subq %rbx, %rax     # %rax = %rax - %rbx (zero)
+    je EqualLabel       # jump if equal (will jump)
+    irmovq $9, %rcx     # skipped if jump occurs
+EqualLabel:
+    irmovq $2, %rcx
+    rmmovq %rcx, 8(%rsp)  # store %rcx to memory
+    mrmovq 8(%rsp), %rdx  # load back into %rdx
+    halt
+    

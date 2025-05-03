@@ -1,0 +1,35 @@
+                            | # Execution begins at address 0 
+0x000:                      |     .pos 0
+0x000: 30f40000000000000000 |     irmovq stack, %rsp      # Set up stack pointer
+0x00a: 30f70500000000000000 |     irmovq $5, %rdi         # set i into %rdi
+0x014: 30f60700000000000000 |     irmovq $7, %rsi         # set j into %rsi
+0x01e: 702700000000000000   |     jmp func                # func(i, j)
+                            | 
+                            | # func(int i, int j)
+                            | # %rdi = i (integer value)
+                            | # %rsi = j (integer value)
+0x027:                      | func:
+0x027: 2070                 |     rrmovq %rdi, %rax      # Load i into %rax
+0x029: 2063                 |     rrmovq %rsi, %rbx      # Load j into %rbx
+                            | 
+0x02b: 6130                 |     subq %rbx, %rax        # Compare i and j (i - j)
+0x02d: 715700000000000000   |     jle else               # Jump to else if i <= j
+                            | 
+                            |     # Then branch (i > j)
+0x036: 30fa0a00000000000000 |     irmovq $10, %r10       # Load constant 10
+0x040: 61a7                 |     subq %r10, %rdi        # i = i - 10
+0x042: 30fa1400000000000000 |     irmovq $20, %r10       # Load constant 20
+0x04c: 60a6                 |     addq %r10, %rsi        # j = j + 20
+0x04e: 706d00000000000000   |     jmp end                # Jump to function end
+                            | 
+0x057:                      | else:
+0x057: 30f70a00000000000000 |     irmovq $10, %rdi       # i = 10
+0x061: 30fa0100000000000000 |     irmovq $1, %r10        # Load constant 1
+0x06b: 60a6                 |     addq %r10, %rsi        # j++
+                            | 
+0x06d:                      | end:
+0x06d: 00                   |     halt
+                            | 
+                            | # Stack starts here and grows to lower addresses
+0x000:                      |     .pos 0x000
+0x000:                      | stack:
