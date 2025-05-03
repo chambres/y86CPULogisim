@@ -1,0 +1,10 @@
+0x000: 30f00500000000000000 |     irmovq $5, %rax
+0x00a: 30f30500000000000000 |     irmovq $5, %rbx
+0x014: 6130                 |     subq %rbx, %rax     # %rax = %rax - %rbx (zero)
+0x016: 732900000000000000   |     je EqualLabel       # jump if equal (will jump)
+0x01f: 30f10900000000000000 |     irmovq $9, %rcx     # skipped if jump occurs
+0x029:                      | EqualLabel:
+0x029: 30f10200000000000000 |     irmovq $2, %rcx
+0x033: 40140800000000000000 |     rmmovq %rcx, 8(%rsp)  # store %rcx to memory
+0x03d: 50240800000000000000 |     mrmovq 8(%rsp), %rdx  # load back into %rdx
+0x047: 00                   |     halt
