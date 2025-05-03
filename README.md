@@ -1,2 +1,6 @@
 # y86CPULogisim
-Y86 CPU in Logisim
+
+A Y86 CPU in Logisim.
+
+Example .ys, .yo, and .mem files in /test.
+
